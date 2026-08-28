@@ -1,0 +1,6 @@
+Native OPNsense integration for the original Sophos SG/XG front panel.
+
+Controls the 16x2 LCD and UP/DOWN/ENTER/ESC keys over the chassis RS232 UART.
+Provides an OPNsense MVC configuration page, configd backend actions, service
+registration, boot integration and a small Python daemon with no third-party
+Python dependencies.

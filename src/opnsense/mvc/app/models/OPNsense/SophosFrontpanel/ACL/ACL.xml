@@ -1,0 +1,10 @@
+<acl>
+    <page-sophos-frontpanel>
+        <name>WebCfg - Services: Sophos Frontpanel</name>
+        <description>Allow access to the Sophos chassis front-panel plugin</description>
+        <patterns>
+            <pattern>ui/sophos_frontpanel/*</pattern>
+            <pattern>api/sophos_frontpanel/*</pattern>
+        </patterns>
+    </page-sophos-frontpanel>
+</acl>

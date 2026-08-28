@@ -1,0 +1,89 @@
+<model>
+    <mount>//OPNsense/SophosFrontpanel</mount>
+    <description>Sophos front panel integration</description>
+    <!-- Public release 1.0.0 uses the same version for package and MVC schema. -->
+    <version>1.0.0</version>
+    <items>
+        <general>
+            <enabled type="BooleanField">
+                <Default>0</Default>
+                <Required>Y</Required>
+            </enabled>
+            <device type="JsonKeyValueStoreField">
+                <Default>/dev/cuau1</Default>
+                <Required>Y</Required>
+                <ConfigdPopulateAct>sophos_frontpanel list_serial_devices</ConfigdPopulateAct>
+                <ValidationMessage>Select an available serial callout device. Devices used by a system console are excluded.</ValidationMessage>
+            </device>
+            <title type="TextField">
+                <Default>OPNsense SG330</Default>
+                <Required>Y</Required>
+                <Mask>/^[A-Za-z0-9 ._:+\/-]{1,16}$/</Mask>
+                <ValidationMessage>LCD title must contain 1 to 16 simple ASCII characters.</ValidationMessage>
+            </title>
+            <wanInterface type="InterfaceField">
+                <Default>wan</Default>
+                <Required>Y</Required>
+                <Multiple>Y</Multiple>
+                <AllowDynamic>Y</AllowDynamic>
+                <filters>
+                    <enable>/^(?!0).*$/</enable>
+                </filters>
+                <ValidationMessage>Select at least one enabled OPNsense interface for the WAN pages.</ValidationMessage>
+            </wanInterface>
+            <wanUseDescription type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </wanUseDescription>
+            <lanInterface type="InterfaceField">
+                <Default>lan</Default>
+                <Required>Y</Required>
+                <Multiple>Y</Multiple>
+                <AllowDynamic>Y</AllowDynamic>
+                <filters>
+                    <enable>/^(?!0).*$/</enable>
+                </filters>
+                <ValidationMessage>Select at least one enabled OPNsense interface for the LAN pages.</ValidationMessage>
+            </lanInterface>
+            <lanUseDescription type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </lanUseDescription>
+            <pollMs type="IntegerField">
+                <Default>100</Default>
+                <MinimumValue>100</MinimumValue>
+                <MaximumValue>1000</MaximumValue>
+                <Required>Y</Required>
+                <ValidationMessage>Button polling interval must be between 100 and 1000 ms.</ValidationMessage>
+            </pollMs>
+            <refreshSeconds type="IntegerField">
+                <Default>2</Default>
+                <MinimumValue>2</MinimumValue>
+                <MaximumValue>60</MaximumValue>
+                <Required>Y</Required>
+                <ValidationMessage>Live value refresh must be between 2 and 60 seconds.</ValidationMessage>
+            </refreshSeconds>
+            <autoRotate type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </autoRotate>
+            <rotateSeconds type="IntegerField">
+                <Default>5</Default>
+                <MinimumValue>2</MinimumValue>
+                <MaximumValue>60</MaximumValue>
+                <Required>Y</Required>
+                <ValidationMessage>Auto rotation interval must be between 2 and 60 seconds.</ValidationMessage>
+            </rotateSeconds>
+            <logLevel type="OptionField">
+                <Default>info</Default>
+                <Required>Y</Required>
+                <OptionValues>
+                    <debug>Debug</debug>
+                    <info>Info</info>
+                    <warning>Warning</warning>
+                    <error>Error</error>
+                </OptionValues>
+            </logLevel>
+        </general>
+    </items>
+</model>

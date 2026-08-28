@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ -x /usr/local/etc/rc.d/sophos_frontpanel ]; then
+    /usr/local/etc/rc.d/sophos_frontpanel stop >/dev/null 2>&1 || true
+fi

@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  static-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install PHP CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php-cli
+
+      - name: Python regression tests
+        run: |
+          python3 tools/test-display-layout.py
+          python3 tools/test-serial-devices.py
+          python3 tools/test-plugin-schema.py
+          python3 tools/test-version.py
+
+      - name: Python syntax
+        run: |
+          python3 -m py_compile \
+            src/opnsense/scripts/sophos_frontpanel/frontpaneld.py \
+            src/opnsense/scripts/sophos_frontpanel/list_serial_devices.py
+
+      - name: XML syntax
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import xml.etree.ElementTree as ET
+          files = sorted(pathlib.Path('src').rglob('*.xml'))
+          for path in files:
+              ET.parse(path)
+              print('OK', path)
+          PY
+
+      - name: PHP syntax
+        run: |
+          find src -type f -name '*.php' -print0 | while IFS= read -r -d '' file; do
+            php -l "$file"
+          done
+
+      - name: POSIX shell syntax
+        shell: bash
+        run: |
+          while IFS= read -r file; do
+            sh -n "$file"
+          done < <(find . -type f \( -name '*.sh' -o -path './src/etc/rc.d/sophos_frontpanel' -o -path './src/etc/rc.syshook.d/start/50-sophos-frontpanel' \))

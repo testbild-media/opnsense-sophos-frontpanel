@@ -1,0 +1,63 @@
+name: Bug report
+description: Report a reproducible plugin, LCD, button or installation problem
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include passwords, API keys or complete OPNsense configuration backups.
+  - type: input
+    id: hardware
+    attributes:
+      label: Sophos hardware
+      description: Exact model and revision, e.g. SG330 Rev.1
+    validations:
+      required: true
+  - type: input
+    id: opnsense
+    attributes:
+      label: OPNsense version
+      placeholder: "26.7"
+    validations:
+      required: true
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Frontpanel serial device
+      placeholder: "/dev/cuau1"
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: What happened and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Relevant diagnostics
+      description: Include only relevant sanitized output such as configctl check/status, dmesg UART lines and logs.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I removed credentials and private configuration data.
+          required: true
+        - label: I checked the troubleshooting guide.
+          required: true

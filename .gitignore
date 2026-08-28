@@ -1,0 +1,21 @@
+# Native/local build output
+/packages/
+/build/
+/dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local scratch
+*.log
+*.tmp

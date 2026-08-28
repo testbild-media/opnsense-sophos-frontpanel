@@ -1,0 +1,3 @@
+#!/bin/sh
+rm -f /usr/local/etc/sophos_frontpanel.conf
+rm -f /var/run/sophos_frontpanel.pid /var/run/sophos_frontpanel.status.json

@@ -1,0 +1,78 @@
+<form>
+    <field>
+        <id>sophosfrontpanel.general.enabled</id>
+        <label>Enable</label>
+        <type>checkbox</type>
+        <help>Enable the Sophos chassis front-panel daemon.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.device</id>
+        <label>Serial device</label>
+        <type>dropdown</type>
+        <help>Available FreeBSD serial callout devices are detected automatically. A UART actively used by the system/login console is excluded from this list.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.title</id>
+        <label>LCD title</label>
+        <type>text</type>
+        <size>16</size>
+        <help>Home-page title. The physical LCD is 16 characters wide, so input is limited to 16 characters.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.wanInterface</id>
+        <label>WAN interfaces</label>
+        <type>select_multiple</type>
+        <help>Select one or more enabled OPNsense interfaces. Each selected interface gets its own WAN IPv4 status page on the LCD.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.wanUseDescription</id>
+        <label>WAN: show Description</label>
+        <type>checkbox</type>
+        <help>When enabled, use the OPNsense interface Description (for example WANSL). When disabled, use the interface Identifier (for example OPT1). The real device name is always shown right-aligned.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.lanInterface</id>
+        <label>LAN interfaces</label>
+        <type>select_multiple</type>
+        <help>Select one or more enabled OPNsense interfaces. Each selected interface gets its own LAN IPv4 status page on the LCD.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.lanUseDescription</id>
+        <label>LAN: show Description</label>
+        <type>checkbox</type>
+        <help>When enabled, use the OPNsense interface Description. When disabled, use the interface Identifier. The real device name is always shown right-aligned.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.pollMs</id>
+        <label>Button polling interval</label>
+        <type>text</type>
+        <size>6</size>
+        <help>Button polling interval in milliseconds, 100 to 1000. 100 ms is recommended for the Sophos panel.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.refreshSeconds</id>
+        <label>Live value refresh</label>
+        <type>text</type>
+        <size>6</size>
+        <help>Refresh OPNsense values every 2 to 60 seconds. The front panel is only rewritten when the visible 16x2 frame changes.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.autoRotate</id>
+        <label>Auto rotation</label>
+        <type>checkbox</type>
+        <help>Automatically advance through LCD status pages.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.rotateSeconds</id>
+        <label>Rotation interval</label>
+        <type>text</type>
+        <size>6</size>
+        <help>Seconds per LCD page while auto rotation is enabled, 2 to 60.</help>
+    </field>
+    <field>
+        <id>sophosfrontpanel.general.logLevel</id>
+        <label>Log level</label>
+        <type>dropdown</type>
+        <help>Daemon logging level. Use Debug only for diagnosis.</help>
+    </field>
+</form>

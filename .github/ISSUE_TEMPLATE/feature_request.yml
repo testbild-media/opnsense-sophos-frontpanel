@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an LCD page, hardware compatibility improvement or OPNsense integration feature
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use case
+      description: What problem should the feature solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: lcd
+    attributes:
+      label: 16x2 display proposal
+      description: If applicable, show the exact two 16-character rows you propose.
+      render: text
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware model/revision

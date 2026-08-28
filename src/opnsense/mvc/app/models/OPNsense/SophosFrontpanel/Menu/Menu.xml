@@ -1,0 +1,5 @@
+<menu>
+    <Services>
+        <SophosFrontpanel VisibleName="Sophos Frontpanel" cssClass="fa fa-desktop fa-fw" url="/ui/sophos_frontpanel/"/>
+    </Services>
+</menu>

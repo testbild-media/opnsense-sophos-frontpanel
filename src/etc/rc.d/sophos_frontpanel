@@ -1,0 +1,107 @@
+#!/bin/sh
+# PROVIDE: sophos_frontpanel
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="sophos_frontpanel"
+rcvar="sophos_frontpanel_enable"
+: ${sophos_frontpanel_enable:="YES"}
+
+pidfile="/var/run/${name}.pid"
+logfile="/var/log/${name}.log"
+frontpanel_cmd="/usr/local/opnsense/scripts/sophos_frontpanel/frontpaneld"
+
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+status_cmd="${name}_status"
+restart_cmd="${name}_restart"
+extra_commands="check"
+check_cmd="${name}_check"
+
+sophos_frontpanel_start()
+{
+    if ! "${frontpanel_cmd}" --is-enabled >/dev/null 2>&1; then
+        echo "${name} is disabled in OPNsense configuration."
+        return 0
+    fi
+
+    if [ -f "${pidfile}" ] && kill -0 "$(cat "${pidfile}" 2>/dev/null)" 2>/dev/null; then
+        echo "${name} already running as pid $(cat "${pidfile}")"
+        return 0
+    fi
+
+    rm -f "${pidfile}"
+    touch "${logfile}"
+    chmod 640 "${logfile}"
+    /usr/sbin/daemon -p "${pidfile}" -o "${logfile}" "${frontpanel_cmd}"
+    sleep 1
+
+    if [ -f "${pidfile}" ] && kill -0 "$(cat "${pidfile}" 2>/dev/null)" 2>/dev/null; then
+        echo "Started ${name}."
+        return 0
+    fi
+
+    echo "${name} did not remain running; check ${logfile}" >&2
+    return 1
+}
+
+sophos_frontpanel_stop()
+{
+    if [ ! -f "${pidfile}" ]; then
+        echo "${name} not running."
+        return 0
+    fi
+
+    pid=$(cat "${pidfile}" 2>/dev/null)
+    if [ -n "${pid}" ] && kill -0 "${pid}" 2>/dev/null; then
+        kill "${pid}"
+        i=0
+        while kill -0 "${pid}" 2>/dev/null && [ "${i}" -lt 20 ]; do
+            sleep 0.1
+            i=$((i + 1))
+        done
+        if kill -0 "${pid}" 2>/dev/null; then
+            kill -9 "${pid}" 2>/dev/null || true
+        fi
+    fi
+
+    rm -f "${pidfile}" /var/run/sophos_frontpanel.status.json
+    echo "Stopped ${name}."
+}
+
+sophos_frontpanel_status()
+{
+    if [ -f "${pidfile}" ]; then
+        pid=$(cat "${pidfile}" 2>/dev/null)
+        if [ -n "${pid}" ] && kill -0 "${pid}" 2>/dev/null; then
+            echo "${name} is running as pid ${pid}."
+            [ -f /var/run/sophos_frontpanel.status.json ] && cat /var/run/sophos_frontpanel.status.json
+            return 0
+        fi
+    fi
+    echo "${name} is not running."
+    return 1
+}
+
+sophos_frontpanel_restart()
+{
+    sophos_frontpanel_stop
+    sophos_frontpanel_start
+}
+
+sophos_frontpanel_check()
+{
+    if [ -f "${pidfile}" ]; then
+        pid=$(cat "${pidfile}" 2>/dev/null)
+        if [ -n "${pid}" ] && kill -0 "${pid}" 2>/dev/null; then
+            echo "UART is already owned by the running ${name} service (pid ${pid})."
+            return 0
+        fi
+    fi
+    "${frontpanel_cmd}" --check 2>&1
+}
+
+load_rc_config "${name}"
+run_rc_command "$1"
