@@ -1,5 +1,11 @@
 # Hardware compatibility
 
+> **Compatibility warning**
+>
+> At this time, the plugin has been tested **only on the Sophos SG330 Rev.1**.
+> Other Sophos SG/XG models and hardware revisions are untested and are **not guaranteed**
+> to work, even if they appear to use a similar front panel.
+
 ## Confirmed
 
 ### Sophos SG330 Rev.1

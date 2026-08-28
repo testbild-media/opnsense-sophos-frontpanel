@@ -4,8 +4,10 @@ Ein natives OPNsense-Plugin für das originale Frontpanel von Sophos SG/XG
 Appliances. Es steuert das **16x2-LCD** und die vier Gehäusetasten
 **UP / DOWN / ENTER / ESC** über den internen RS232-UART.
 
-> **Stand:** öffentliche Version **1.0.0**. Getestet auf einer
-> **Sophos SG330 Rev.1** mit **OPNsense 26.7** auf Bare Metal.
+> **Stand:** öffentliche Version **1.0.0**.
+> **Hardware-Kompatibilität:** Das Plugin wurde bisher **ausschließlich auf einer Sophos SG330 Rev.1**
+> mit **OPNsense 26.7** auf Bare Metal getestet. Für andere Sophos-Modelle oder Hardware-Revisionen
+> gibt es **keine Funktionsgarantie**. Die Nutzung auf nicht getesteter Hardware erfolgt auf eigenes Risiko.
 
 Das Projekt ist unabhängig von Sophos und OPNsense/Deciso. Siehe
 [NOTICE.md](NOTICE.md).
@@ -33,6 +35,20 @@ Repository: [https://github.com/testbild-media/opnsense-sophos-frontpanel](https
 - keine zusätzlichen Python-Pakete
 - nativer lokaler Paketbau direkt auf OPNsense mit `pkg create`
 - Regressionstests für 16x2-Ausgabe, MVC-Schema und UART-Konsolenerkennung
+
+
+## Getestete Hardware
+
+Aktuell ist nur folgende Plattform getestet und bestätigt:
+
+- **Sophos SG330 Rev.1**
+- OPNsense 26.7 auf Bare Metal
+- Frontpanel-UART: `/dev/cuau1`
+- 2400 Baud, 8N2
+
+Andere Sophos SG/XG-Geräte können ein ähnliches Frontpanel oder Protokoll verwenden,
+wurden von diesem Projekt aber bisher **nicht verifiziert**. Es wird daher ausdrücklich
+**keine Garantie für die Funktion auf anderen Sophos-Geräten oder Revisionen** übernommen.
 
 ## Schnellinstallation
 

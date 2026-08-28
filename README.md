@@ -4,8 +4,10 @@ Native OPNsense integration for the original front panel used in Sophos SG/XG
 appliances. The plugin controls the **16x2 LCD** and the four chassis buttons
 (**UP / DOWN / ENTER / ESC**) through the internal RS232 UART.
 
-> **Project status:** community plugin, public release **v1.0.0**. Hardware-tested
-> on a **Sophos SG330 Rev.1** running **OPNsense 26.7** on bare metal.
+> **Project status:** community plugin, public release **v1.0.0**.
+> **Hardware compatibility:** this plugin has currently been tested **only on a Sophos SG330 Rev.1**
+> running **OPNsense 26.7** on bare metal. There is **no guarantee** that it will work on other
+> Sophos models or hardware revisions. Use on untested hardware is at your own risk.
 
 This repository is independent from Sophos and OPNsense/Deciso. See
 [NOTICE.md](NOTICE.md).
@@ -52,8 +54,9 @@ Repository: [https://github.com/testbild-media/opnsense-sophos-frontpanel](https
 | Buttons | UP, DOWN, ENTER, ESC |
 | Serial protocol | 2400 baud, 8N2, no flow control |
 
-Other Sophos SG/XG models may use the same panel/protocol, but are **not claimed
-as tested** unless listed above.
+The **Sophos SG330 Rev.1 is currently the only tested and confirmed platform**. Other
+Sophos SG/XG appliances may use a similar front panel or protocol, but compatibility has
+not been verified. **No guarantee is provided for any other Sophos model or revision.**
 
 ## LCD examples
 
